@@ -26,6 +26,18 @@ defmodule Evercraft.AttackTest do
 
   end
 
+  data_test "1 is added to attack roll for every even level - #{exp}" do
+
+    attacker = Character.new(name: "Attacker", experience: exp)
+    defender = Character.new(name: "Defender")
+    attack = Attack.new(attacker, defender, roll)
+
+    assert Attack.hit?(attack) == true
+
+    where exp:  [0, 1000, 2000, 3000, 4000, 5000],
+          roll: [10,   9,    9,    8,    8,    7]
+  end
+
   describe "A strong attacker" do
 
     setup do

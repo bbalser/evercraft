@@ -1,6 +1,6 @@
 defmodule Evercraft.Attack do
 
-  alias Evercraft.Character
+  alias Evercraft.{ Character, Equipment }
 
   defstruct [:attacker, :defender, :roll]
 
@@ -9,7 +9,7 @@ defmodule Evercraft.Attack do
   end
 
   def hit?(%__MODULE__{defender: defender, roll: roll} = attack) do
-    (roll + attack_bonus(attack)) >= Character.armor_class(defender)
+    (roll + attack_bonus(attack)) >= (Character.armor_class(defender) + armor_class_bonus(attack))
   end
 
   def apply_damage(%__MODULE__{defender: defender} = attack) do
@@ -19,23 +19,26 @@ defmodule Evercraft.Attack do
 
   defp determine_damage(%__MODULE__{roll: roll} = attack) do
     case {hit?(attack), roll == 20}  do
-      {true, true} -> 2 * (1 + damage_bonus(attack)) |> max(1)
-      {true, false} -> 1 + damage_bonus(attack) |> max(1)
+      {true, true} -> (critical_hit_multiplier(attack) * (1 + damage_bonus(attack))) |> max(1)
+      {true, false} -> (1 + damage_bonus(attack)) |> max(1)
       {false, _} -> 0
     end
   end
 
   defp attack_bonus(%__MODULE__{attacker: attacker} = attack) do
-    Character.equipped(attacker)
-    |> Enum.map(fn equipped -> equipped.attack_bonus(attack) end)
-    |> Enum.sum()
+    Equipment.sum(attacker, :attack_bonus, [attack])
   end
 
   defp damage_bonus(%__MODULE__{attacker: attacker} = attack) do
-    Character.equipped(attacker)
-    |> Enum.map(fn equipped -> equipped.attack_bonus(attack) end)
-    |> Enum.sum()
+    Equipment.sum(attacker, :damage_bonus, [attack])
+  end
+
+  defp armor_class_bonus(%__MODULE__{defender: defender} = attack) do
+    Equipment.sum(defender, :armor_class_bonus, [attack])
+  end
+
+  defp critical_hit_multiplier(%__MODULE__{attacker: attacker} = attack) do
+    Equipment.max(attacker, :critical_hit_multiplier, [attack])
   end
 
 end
-

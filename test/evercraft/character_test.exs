@@ -55,15 +55,13 @@ defmodule Evercraft.CharacterTests do
           result:     [false, true]
   end
 
-  describe "a hearty character" do
+  data_test "a hearty character of level #{level} includes constitution modifier in max_hit_points" do
 
-    setup do
-      [character: Character.new(name: "Charlie", constitution: 12)]
-    end
+    character = Character.new(name: "Charlie", constitution: 12, experience: (level-1)*1000)
+    assert Character.max_hit_points(character) == max_hit_points
 
-    test "adds constitution modifier to max hit points", %{character: character} do
-      assert Character.max_hit_points(character) == 6
-    end
+    where level:          [1,2 ,3 ,4 ,5],
+          max_hit_points: [6,12,18,24,30]
 
   end
 
@@ -77,6 +75,28 @@ defmodule Evercraft.CharacterTests do
       assert Character.max_hit_points(character) == 1
       assert Character.hit_points(character) == 1
     end
+
+  end
+
+  data_test "a character with exp in range #{inspect exp_range} is level #{level}" do
+
+    Enum.each(exp_range, fn exp ->
+      character = Character.new(name: "George", experience: exp)
+      assert Character.level(character) == level
+    end)
+
+    where exp_range: [0..999, 1000..1999, 2000..2999, 3000..3999],
+          level:     [     1,          2,          3,          4]
+
+  end
+
+  data_test "a character of level #{level} has #{max_hit_points} max_hit_points" do
+
+    character = Character.new(name: "Charlie", experience: (level-1) * 1000)
+    assert Character.max_hit_points(character) == max_hit_points
+
+    where level:          [1, 2,  3,  4 ],
+          max_hit_points: [5, 10, 15, 20]
 
   end
 

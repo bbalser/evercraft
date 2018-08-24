@@ -1,6 +1,6 @@
 defmodule Evercraft.Character do
 
-  alias Evercraft.{Ability, Alignment}
+  alias Evercraft.{ Alignment, Equipment }
 
   defstruct [
     name: nil,
@@ -12,7 +12,8 @@ defmodule Evercraft.Character do
     wisdom: 10,
     intelligence: 10,
     charisma: 10,
-    class: Evercraft.Classes.Default
+    class: Evercraft.Classes.Default,
+    experience: 0
   ]
 
   def new(opts) do
@@ -31,12 +32,13 @@ defmodule Evercraft.Character do
 
   def alignment(%__MODULE__{alignment: alignment}), do: alignment
 
-  def armor_class(%__MODULE__{dexterity: dexterity} = _character), do: 10 + Ability.modifier(dexterity)
+  def armor_class(%__MODULE__{} = _character), do: 10
 
   def hit_points(%__MODULE__{hit_points: hit_points}), do: hit_points
 
-  def max_hit_points(%__MODULE__{constitution: constitution}) do
-    (5 + Ability.modifier(constitution)) |> max(1)
+  def max_hit_points(%__MODULE__{} = character) do
+    Equipment.sum(character, :hit_point_bonus)
+    |> max(1)
   end
 
   def alive?(%__MODULE__{hit_points: hit_points}) do
@@ -49,6 +51,10 @@ defmodule Evercraft.Character do
   def wisdom(%__MODULE__{wisdom: wisdom}), do: wisdom
   def intelligence(%__MODULE__{intelligence: intelligence}), do: intelligence
   def charisma(%__MODULE__{charisma: charisma}), do: charisma
+
+  def level(%__MODULE__{experience: exp}) do
+    1 + div(exp, 1000)
+  end
 
   def equipped(%__MODULE__{class: class}) do
     [class]
