@@ -3,7 +3,6 @@ defmodule Evercraft.Classes.RogueTest do
 
   alias Evercraft.{ Attack, Character }
 
-  import Checkov
   import Evercraft.Class, only: [rogue: 0]
 
   describe "A rogue" do
@@ -35,6 +34,16 @@ defmodule Evercraft.Classes.RogueTest do
     test "does not ignore opponents dexterity modifier during an attack if it is negative", %{rogue: rogue} do
 
       defender = Character.new(name: "Defender", dexterity: 8)
+      attack = Attack.new(rogue, defender, 9)
+
+      assert Attack.hit?(attack) == true
+
+    end
+
+    test "adds dexterity modifier to attacks rather than strength" do
+
+      rogue = Character.new(name: "Rogue", class: rogue(), dexterity: 12)
+      defender = Character.new(name: "Defender")
       attack = Attack.new(rogue, defender, 9)
 
       assert Attack.hit?(attack) == true

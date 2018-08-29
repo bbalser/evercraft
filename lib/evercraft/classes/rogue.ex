@@ -7,8 +7,8 @@ defmodule Evercraft.Classes.Rogue do
     3
   end
 
-  def attack_bonus_from_abilities(%Attack{defender: defender} = attack) do
-    super(attack) +
+  def attack_bonus_from_abilities(%Attack{attacker: attacker, defender: defender}) do
+    (Character.dexterity(attacker) |> Ability.modifier()) +
       (Character.dexterity(defender) |> Ability.modifier() |> max(0))
   end
 
