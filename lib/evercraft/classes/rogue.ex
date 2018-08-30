@@ -1,6 +1,5 @@
 defmodule Evercraft.Classes.Rogue do
   use Evercraft.Class
-
   alias Evercraft.{ Ability, Attack, Character }
 
   def critical_hit_multiplier(_attack) do

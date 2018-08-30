@@ -41,5 +41,6 @@ defmodule Evercraft.Class do
   def fighter(), do: Evercraft.Classes.Fighter
   def rogue(), do: Evercraft.Classes.Rogue
   def monk(), do: Evercraft.Classes.Monk
+  def paladin(), do: Evercraft.Classes.Paladin
 
 end

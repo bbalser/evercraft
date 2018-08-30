@@ -1,6 +1,5 @@
 defmodule Evercraft.Classes.Monk do
   use Evercraft.Class
-
   alias Evercraft.{ Ability, Attack, Character }
 
   def hit_point_bonus_from_level(%Character{} = character) do
