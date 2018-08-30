@@ -1,4 +1,4 @@
-defmodule Evercraft.Classes.RogueTest do
+defmodule Evercraft.Class.RogueTest do
   use ExUnit.Case
 
   alias Evercraft.{ Attack, Character }

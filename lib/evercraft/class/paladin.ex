@@ -1,4 +1,4 @@
-defmodule Evercraft.Classes.Paladin do
+defmodule Evercraft.Class.Paladin do
   use Evercraft.Class
 
   alias Evercraft.{Attack, Character}

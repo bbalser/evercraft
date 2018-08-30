@@ -12,7 +12,7 @@ defmodule Evercraft.Character do
     wisdom: 10,
     intelligence: 10,
     charisma: 10,
-    class: Evercraft.Classes.Default,
+    class: Evercraft.Class.Default,
     experience: 0
   ]
 

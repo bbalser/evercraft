@@ -1,4 +1,4 @@
-defmodule Evercraft.Classes.Fighter do
+defmodule Evercraft.Class.Fighter do
   use Evercraft.Class
   alias Evercraft.{ Ability, Character }
 

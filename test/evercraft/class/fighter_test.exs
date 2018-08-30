@@ -1,4 +1,4 @@
-defmodule Evercraft.Classes.FighterTest do
+defmodule Evercraft.Class.FighterTest do
   use ExUnit.Case
   import Checkov
   alias Evercraft.{ Attack, Character }

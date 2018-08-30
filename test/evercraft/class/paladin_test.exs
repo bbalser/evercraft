@@ -1,4 +1,4 @@
-defmodule Evercraft.Classes.PaladinTest do
+defmodule Evercraft.Class.PaladinTest do
   use ExUnit.Case
   import Checkov
   import Evercraft.Class, only: [paladin: 0]

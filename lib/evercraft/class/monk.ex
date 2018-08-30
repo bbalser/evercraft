@@ -1,4 +1,4 @@
-defmodule Evercraft.Classes.Monk do
+defmodule Evercraft.Class.Monk do
   use Evercraft.Class
   alias Evercraft.{ Ability, Attack, Character }
 

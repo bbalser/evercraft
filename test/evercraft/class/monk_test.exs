@@ -1,4 +1,4 @@
-defmodule Evercraft.Classes.MonkTest do
+defmodule Evercraft.Class.MonkTest do
   use ExUnit.Case
   import Checkov
   import Evercraft.Class, only: [monk: 0]

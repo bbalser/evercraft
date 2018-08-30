@@ -1,4 +1,4 @@
-defmodule Evercraft.Classes.Rogue do
+defmodule Evercraft.Class.Rogue do
   use Evercraft.Class
   alias Evercraft.{ Ability, Attack, Character }
 
