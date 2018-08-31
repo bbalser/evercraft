@@ -6,6 +6,7 @@ defmodule Evercraft.Equipment do
 
   @callback damage_bonus(%Evercraft.Attack{}) :: integer
 
+  @callback armor_class_bonus_for_character(%Evercraft.Character{}) :: integer
   @callback armor_class_bonus(%Evercraft.Attack{}) :: integer
 
   @callback hit_point_bonus(%Evercraft.Character{}) :: integer
@@ -13,6 +14,7 @@ defmodule Evercraft.Equipment do
   @callback hit_point_bonus_from_abilities(%Evercraft.Character{}) :: integer
 
   @callback critical_hit_multiplier(%Evercraft.Attack{}) :: integer
+  @callback ability_bonus(atom) :: integer
 
   defmacro __using__(_opts) do
     quote do
@@ -34,6 +36,10 @@ defmodule Evercraft.Equipment do
         0
       end
 
+      def armor_class_bonus_for_character(%Evercraft.Character{}) do
+        0
+      end
+
       def armor_class_bonus(%Evercraft.Attack{}) do
         0
       end
@@ -51,6 +57,10 @@ defmodule Evercraft.Equipment do
       end
 
       def critical_hit_multiplier(%Evercraft.Attack{}) do
+        0
+      end
+
+      def ability_bonus(_ability) do
         0
       end
 

@@ -9,5 +9,8 @@ defmodule Evercraft.Race do
   end
 
   def human(), do: Evercraft.Race.Human
+  def orc(), do: Evercraft.Race.Orc
+  def dwarf(), do: Evercraft.Race.Dwarf
+  def elf(), do: Evercraft.Race.Elf
 
 end

@@ -13,6 +13,7 @@ defmodule Evercraft.Character do
     intelligence: 10,
     charisma: 10,
     class: Evercraft.Class.Default,
+    race: Evercraft.Race.Human,
     experience: 0
   ]
 
@@ -32,7 +33,9 @@ defmodule Evercraft.Character do
 
   def alignment(%__MODULE__{alignment: alignment}), do: alignment
 
-  def armor_class(%__MODULE__{} = _character), do: 10
+  def armor_class(%__MODULE__{} = character) do
+    10 + Equipment.sum(character, :armor_class_bonus_for_character, [character])
+  end
 
   def hit_points(%__MODULE__{hit_points: hit_points}), do: hit_points
 
@@ -45,19 +48,24 @@ defmodule Evercraft.Character do
     hit_points > 0
   end
 
-  def strength(%__MODULE__{strength: strength}), do: strength
-  def dexterity(%__MODULE__{dexterity: dexterity}), do: dexterity
-  def constitution(%__MODULE__{constitution: constitution}), do: constitution
-  def wisdom(%__MODULE__{wisdom: wisdom}), do: wisdom
-  def intelligence(%__MODULE__{intelligence: intelligence}), do: intelligence
-  def charisma(%__MODULE__{charisma: charisma}), do: charisma
+  def strength(%__MODULE__{} = character), do: ability_bonus(character, :strength)
+  def dexterity(%__MODULE__{} = character), do: ability_bonus(character, :dexterity)
+  def constitution(%__MODULE__{} = character), do: ability_bonus(character, :constitution)
+  def wisdom(%__MODULE__{} = character), do: ability_bonus(character, :wisdom)
+  def intelligence(%__MODULE__{} = character), do: ability_bonus(character, :intelligence)
+  def charisma(%__MODULE__{} = character), do: ability_bonus(character, :charisma)
 
   def level(%__MODULE__{experience: exp}) do
     1 + div(exp, 1000)
   end
 
-  def equipped(%__MODULE__{class: class}) do
-    [class]
+  def equipped(%__MODULE__{class: class, race: race}) do
+    [class, race]
   end
+
+  defp ability_bonus(character, ability) do
+    Map.get(character, ability) + Equipment.sum(character, :ability_bonus, [ability])
+  end
+
 
 end
