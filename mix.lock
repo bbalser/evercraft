@@ -1,3 +1,5 @@
 %{
   "checkov": {:hex, :checkov, "0.4.0", "a1974a5885f62f8943a9059f0d5252b222271e0e58dd872ffb60323f2e376433", [:mix], [], "hexpm"},
+  "dialyxir": {:hex, :dialyxir, "0.5.1", "b331b091720fd93e878137add264bac4f644e1ddae07a70bf7062c7862c4b952", [:mix], [], "hexpm"},
+  "exactor": {:hex, :exactor, "2.2.4", "5efb4ddeb2c48d9a1d7c9b465a6fffdd82300eb9618ece5d34c3334d5d7245b1", [:mix], [], "hexpm"},
 }

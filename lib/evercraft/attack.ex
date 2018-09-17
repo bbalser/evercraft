@@ -1,17 +1,21 @@
 defmodule Evercraft.Attack do
-
   alias Evercraft.{ Character, Equipment }
+
+  @type t :: %__MODULE__{}
 
   defstruct [:attacker, :defender, :roll]
 
+  @spec new(Character.t, Character.t, integer) :: t
   def new(attacker, defender, roll) do
     %__MODULE__{attacker: attacker, defender: defender, roll: roll}
   end
 
+  @spec hit?(t) :: boolean
   def hit?(%__MODULE__{defender: defender, roll: roll} = attack) do
     (roll + attack_bonus(attack)) >= (Character.armor_class(defender) + armor_class_bonus(attack))
   end
 
+  @spec apply_damage(t) :: Character.t
   def apply_damage(%__MODULE__{defender: defender} = attack) do
     new_hitpoints = Character.hit_points(defender) - determine_damage(attack)
     Character.copy(defender, hit_points: new_hitpoints)

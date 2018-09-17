@@ -20,7 +20,9 @@ defmodule Evercraft.MixProject do
 
   defp deps do
     [
-      {:checkov, "~> 0.4.0"}
+      {:checkov, "~> 0.4.0", only: :test},
+      {:exactor, "~> 2.2"},
+      {:dialyxir, "~> 0.5.1", only: :dev, runtime: false}
     ]
   end
 end
